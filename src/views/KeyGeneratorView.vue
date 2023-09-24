@@ -1,7 +1,7 @@
 <template>
 
 <div id="key-generator-view">
-    <div class="key">
+    <div ref="key" id="key">
         {{ key }}
     </div>
 </div>
@@ -30,8 +30,14 @@ export default {
         async Run() {
             for(;;)
             {
-                this.key = this.GenerateRandomKey();
+                // Creates a flicker effect
+                this.$refs.key.style.opacity = 0;
                 await sleep(1000);
+
+                this.key = this.GenerateRandomKey();
+                
+                this.$refs.key.style.opacity = 1;
+                await sleep(2500); 
             }
         },
 
@@ -41,21 +47,20 @@ export default {
             let letters_with_8_frequencies = ["A", "B", "C"];
 
             let valid = false;
-            let number = null;
-            let letter = null;
 
             while(!valid)
             {
-                number = this.getRandomInt(1, 8);
-                letter = this.choose(letters);
+                let number = this.getRandomInt(1, 8);
+                let letter = this.choose(letters);
+                var key = `${letter}${number}`;
 
-                if (number < 8 || letters_with_8_frequencies.includes(letter))
+                if (key !== this.key && number < 8 || letters_with_8_frequencies.includes(letter))
                 {
                     valid = true;
                 }
             }
 
-            return `${letter}${number}`;
+            return key;
         },
 
         getRandomInt(min, max) {
@@ -84,8 +89,10 @@ export default {
     font-size: 10rem;
 }
 
-.key {
+#key {
     font-size: 10rem;
+
+    transition: opacity 1s ease-in-out;
 }
 
 </style>
