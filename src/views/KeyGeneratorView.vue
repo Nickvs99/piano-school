@@ -17,13 +17,16 @@ export default {
     name: "KeyGeneratorView",
     data() {
         return {
-            key: "A1"
+            key: "A1",
+            wakeLock: null,
         };
     },
     mounted() {
         scrollIntoView("key-generator-view");
 
+        this.requestScreenLock();
         this.Run();
+        
     },
 
     methods: {
@@ -70,7 +73,19 @@ export default {
         choose(choices) {
             var index = Math.floor(Math.random() * choices.length);
             return choices[index];
-        }        
+        },
+
+        async requestScreenLock() {
+            try {
+                this.wakeLock = await navigator.wakeLock.request("screen");
+                this.wakeLock.addEventListener("release", () => {
+                    console.log("Wake Lock was released");
+                });
+                console.log("Wake Lock is active");
+            } catch (err) {
+                console.error(`${err.name}, ${err.message}`);
+            }
+        }       
     }
 };
 
