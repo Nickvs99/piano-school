@@ -1,6 +1,9 @@
 <template>
 
-<div id="timer-container" @mousedown="onMouseDown" @mouseup="onMouseUp">
+<div id="timer-container" 
+    @mousedown="onMouseDown" 
+    @mouseup="onMouseUp"
+    :class="{ finished: this.timeLeft <= 0 }">
     <div>
         {{timeText}}
     </div>
@@ -10,7 +13,9 @@
 
 <script>
 import { requestScreenLock } from "@/js/screenlock";
+import { scrollIntoView } from "@/js/scroll";
 import { sleep } from "@/js/sleep";
+
 
 export default {
 
@@ -26,6 +31,8 @@ export default {
     },
 
     mounted() {
+        scrollIntoView("timer-container");
+
         this.screenlock = requestScreenLock();
         this.maxTime = this.$route.params.time * 1000;
         this.resetTimer();
@@ -40,13 +47,10 @@ export default {
             if (time > 10)
                 return time.toFixed(0);
 
-            if(time > 3)
-                return time.toFixed(1);
-
             if(time <= 0)
                 return 0;
 
-            return time.toFixed(2);
+            return time.toFixed(1);
         }
     },
 
@@ -91,9 +95,19 @@ export default {
 <style lang="scss" scoped>
 
 #timer-container {
-    background-color: lightgrey;
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 10rem;
+
+    &.finished {
+        background-color: red;
+        color: white;
+    }
 }
 
 </style>
