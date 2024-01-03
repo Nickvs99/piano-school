@@ -2,8 +2,8 @@
     
 <nav class="navbar">
     <router-link class="navbar-item" to="/"><HomeIcon class="navbar-svg"/></router-link>
-    <router-link class="navbar-item" to="/about">About</router-link>
     <router-link class="navbar-item" to="/key-generator">Key-Generator</router-link>
+    <router-link class="navbar-item" to="/timer">Timer</router-link>
 </nav>
 
 </template>

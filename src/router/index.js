@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import AboutView from "@/views/AboutView.vue";
 import HomeView from "@/views/HomeView.vue";
 import KeyGeneratorView from "@/views/KeyGeneratorView.vue";
+import TimerView from "@/views/TimerView.vue";
+import TimerMenuView from "@/views/TimerMenuView.vue";
 
 const routes = [
     {
@@ -20,6 +22,18 @@ const routes = [
         name: "key-generator",
         component: KeyGeneratorView,
     },
+    {
+        path: "/timer",
+        name: "timer-menu",
+        component: TimerMenuView,
+    },
+    {
+        path: "/timer/:time",
+        name: "timer",
+        component: TimerView,  
+    }
+
+
 ];
 
 const router = createRouter({
