@@ -10,6 +10,7 @@
 
 <script>
 
+import { requestScreenLock } from "@/js/screenlock";
 import {scrollIntoView} from "@/js/scroll.js";
 import {sleep} from "@/js/sleep.js";
 
@@ -18,13 +19,13 @@ export default {
     data() {
         return {
             key: "A1",
-            wakeLock: null,
+            screenlock: null,
         };
     },
     mounted() {
         scrollIntoView("key-generator-view");
 
-        this.requestScreenLock();
+        this.screenlock = requestScreenLock();
         this.Run();
     },
 
@@ -79,18 +80,6 @@ export default {
             return choices[index];
         },
 
-        async requestScreenLock() {
-            try {
-                this.wakeLock = await navigator.wakeLock.request("screen");
-                this.wakeLock.addEventListener("release", () => {
-                    console.log("Wake Lock was released");
-                });
-                console.log("Wake Lock is active");
-            } catch (err) {
-                console.error(`${err.name}, ${err.message}`);
-            }
-        },
-        
         isUnMounted(){
             return this.$refs.key == null;
         }

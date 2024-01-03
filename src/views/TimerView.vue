@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { requestScreenLock } from "@/js/screenlock";
 import { sleep } from "@/js/sleep";
 
 export default {
@@ -20,10 +21,12 @@ export default {
             start: 0,
             mousedownTime: 0,
             holdTimeThreshold: 2500, //ms
+            screenlock: null,
         }; 
     },
 
     mounted() {
+        this.screenlock = requestScreenLock();
         this.maxTime = this.$route.params.time * 1000;
         this.resetTimer();
         this.run();
