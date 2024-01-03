@@ -26,19 +26,23 @@ export default {
 
         this.requestScreenLock();
         this.Run();
-        
     },
 
     methods: {
         async Run() {
             for(;;)
             {
+                if(this.isUnMounted())
+                    return;
+
                 // Creates a flicker effect
                 this.$refs.key.style.opacity = 0;
                 await sleep(1000);
 
                 this.key = this.GenerateRandomKey();
-                
+                if(this.isUnMounted())
+                    return;
+
                 this.$refs.key.style.opacity = 1;
                 await sleep(2500); 
             }
@@ -85,7 +89,11 @@ export default {
             } catch (err) {
                 console.error(`${err.name}, ${err.message}`);
             }
-        }       
+        },
+        
+        isUnMounted(){
+            return this.$refs.key == null;
+        }
     }
 };
 
