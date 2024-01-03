@@ -1,4 +1,4 @@
-# piano-school
+# Misc
 
 ## Project setup
 ```

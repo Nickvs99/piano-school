@@ -1,7 +1,7 @@
 <template>
 
 <div class="about">
-    This webapp was created to improve piano skills through a few small programs.
+    This webapp was created to host a few small programs.
 </div>
 
 </template>

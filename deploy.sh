@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-GITHUB_REPO="https://github.com/Nickvs99/piano-school"
+GITHUB_REPO="https://github.com/Nickvs99/misc"
 BRANCH_NAME="gh-pages"
 COMMIT_HASH=$(git rev-parse --short HEAD)
 
